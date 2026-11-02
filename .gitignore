@@ -5,6 +5,7 @@ public/
 .hugo_build.lock
 .vercel
 yarn-error.log
+prepare_github_pages.py
 # Local Netlify folder
 .netlify
 yarn-error.log

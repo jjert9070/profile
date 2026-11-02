@@ -1,0 +1,22 @@
+{
+  "baseURL": "https://jjert9070.github.io/profile/",
+  "enableGitInfo": false,
+  "themesDir": "themes",
+  "timeout": "120s",
+  "security": {
+    "exec": {
+      "allow": [
+        "^(dart-)?sass$",
+        "^go$",
+        "^git$",
+        "^node$",
+        "^postcss$",
+        "^tailwindcss$",
+        "^asciidoctor$"
+      ]
+    },
+    "allowContent": [
+      "^text/"
+    ]
+  }
+}

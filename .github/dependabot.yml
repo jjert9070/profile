@@ -1,0 +1,20 @@
+# Dependabot configuration
+#
+# Only ecosystems that actually exist in this repo are listed. There is no Go
+# module here (Hugo is consumed as a prebuilt binary, not built from source),
+# so a "gomod" entry finds no go.mod and errors on every weekly run.
+
+version: 2
+updates:
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"

@@ -1,5 +1,5 @@
 {
-  "config": "hugo.yaml,pages.json",
+  "config": "hugo.yaml,site/pages.json",
   "theme": null,
   "sample": ".",
   "version": "0.167.0",
@@ -9,5 +9,6 @@
   "generator": "3.1",
   "repo": "https://github.com/jjert9070/profile.git",
   "baseURL": "https://jjert9070.github.io/profile/",
-  "audited": false
+  "audited": false,
+  "source": "."
 }

@@ -555,8 +555,8 @@ def run(args, cwd):
 
 
 def dependencies(root):
-    site = root / 'site'
     state = json.loads(read_text(root / STATE))
+    site = root / state.get('source', 'site')
     folders = [site / rel for rel in state['npm']] if state.get('npm') is not None else [site, site / 'themes/template']
     for folder in folders:
         if (folder / 'package.json').is_file():
@@ -695,7 +695,7 @@ def fix_public_paths(public, base):
 def build(root):
     os.environ.setdefault('GOMAXPROCS', '2')
     state = json.loads(read_text(root / STATE))
-    site = root / 'site'
+    site = root / state.get('source', 'site')
     base = os.environ.get('SITE_BASE_URL') or state['baseURL']
     base = base.rstrip('/') + '/'
     paths = [site / 'node_modules/.bin', site / 'themes/template/node_modules/.bin',
@@ -703,7 +703,7 @@ def build(root):
     # Keep the native Dart Sass executable ahead of npm's non-embedded sass CLI.
     os.environ['PATH'] = os.environ.get('PATH', '') + os.pathsep + os.pathsep.join(map(str, paths))
     args = ['hugo', '--gc', '--minify', '--config', state['config'],
-            '--destination', '../public', '--baseURL', base, '--enableGitInfo=false']
+            '--destination', str(root / 'public'), '--baseURL', base, '--enableGitInfo=false']
     if state['theme']:
         args += ['--theme', state['theme'], '--themesDir', str(site / 'themes')]
     run(args, site)

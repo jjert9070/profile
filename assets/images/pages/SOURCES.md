@@ -23,3 +23,5 @@
 - Original repository: https://github.com/nusserstudios/tailbliss
 - The repository LICENSE and footer author credit are retained.
 - Demo About, Contact and Prose pages and the unused content/posts directory were backed up locally and removed. Personal Study content and the homepage Contact section are retained.
+
+- The unused top-level exampleSite and images folders were backed up locally and moved out of the project rather than permanently deleted. A symbolic link inside exampleSite was recorded without following its target. Active assets/images and static/images remain in use.

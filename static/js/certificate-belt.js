@@ -195,6 +195,7 @@ document.querySelectorAll("[data-certificate-belt]").forEach((root) => {
     largeImage.alt = `${button.dataset.title} completion certificate`;
     previousOverflow = document.documentElement.style.overflow;
     dialog.showModal();
+    root.querySelector("[data-close]").focus({ preventScroll: true });
     document.documentElement.style.overflow = "hidden";
     if (!reducedMotion.matches) {
       animation = dialog.animate(
@@ -212,6 +213,16 @@ document.querySelectorAll("[data-certificate-belt]").forEach((root) => {
     event.preventDefault();
     close();
   });
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key !== "Escape" || !dialog.open || event.isComposing) return;
+      event.preventDefault();
+      event.stopPropagation();
+      close();
+    },
+    true,
+  );
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) close();
   });

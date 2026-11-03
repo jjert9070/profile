@@ -1,5 +1,5 @@
+> 이 저장소는 Jeongju Pak의 개인 포트폴리오입니다. 현재 사이트는 최상위 폴더의 `hugo.yaml`, `content`, `layouts`, `assets`, `static`을 사용합니다. 사용하지 않는 `exampleSite`와 최상위 `images`는 백업 후 프로젝트 밖 보관 폴더로 옮겼습니다. 아래 문서는 원본 테마의 참고 설명이며 예시 폴더를 사용하는 절차는 현재 프로젝트에 적용하지 않습니다.
 <p align="center" style="padding-top:20px">
- <img width="100px" src="images/logo-tailbliss-round.svg" align="center" alt="TailBliss Logo" />
  <h1 align="center">TailBliss</h1>
  <p align="center">TailBliss is an opinionated Hugo theme with Tailwind CSS 4.x, Vite integration, and Alpine.js with light/dark modes.</p>
  <p align="center"><strong>Current Version: 1.1.0+ (Hugo Theme Structure)</strong></p>
@@ -35,11 +35,8 @@
 
   <p align="center">
     <a href="https://tailbliss.netlify.app/">View Demo</a>
-    ·
     <a href="https://github.com/nusserstudios/tailbliss/issues">Report Bug</a>
-    ·
     <a href="https://github.com/nusserstudios/tailbliss/discussions/categories/feature-request">Request Feature</a>
-    ·
     <a href="https://github.com/nusserstudios/tailbliss/discussions/categories/general">Ask Question</a>
   </p>
 

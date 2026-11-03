@@ -4,8 +4,14 @@
         wide: window.matchMedia('(min-width: 48rem)').matches,
         moveMenuFocus(event) {
             if (event.isComposing || event.altKey || event.ctrlKey || event.metaKey) return;
-            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
-            const direction = event.key === 'ArrowDown' ? 1 : -1;
+            const direction = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[event.key];
+            if (!direction) return;
+            const horizontal = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
+            if (horizontal && !this.wide) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+            }
             const nav = event.currentTarget;
             const group = event.target.closest('[data-navigation-group]');
             const trigger = group?.querySelector('button');
@@ -13,7 +19,7 @@
             const visible = item => item.getClientRects().length && !item.disabled && item.tabIndex >= 0 && !item.closest('[inert]');
             event.preventDefault();
             event.stopPropagation();
-            if (current === trigger && direction === 1) {
+            if (current === trigger && direction === 1 && !horizontal) {
                 if (trigger.getAttribute('aria-expanded') !== 'true') trigger.click();
                 this.$nextTick(() => group.querySelector('a[href]')?.focus({ preventScroll: true }));
                 return;
@@ -21,7 +27,9 @@
             const topItems = Array.from(nav.querySelectorAll('a[href], button'))
                 .filter(item => !item.closest('.navigation-dropdown') && visible(item));
             let next;
-            if (group && current !== trigger) {
+            if (group && horizontal) {
+                next = topItems[topItems.indexOf(trigger) + direction];
+            } else if (group && current !== trigger) {
                 const links = Array.from(group.querySelectorAll('a[href]')).filter(visible);
                 next = links[links.indexOf(current) + direction];
                 if (!next) next = direction === -1 ? trigger : topItems[topItems.indexOf(trigger) + 1];

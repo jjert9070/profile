@@ -1,0 +1,224 @@
+.certificate-belt {
+  --belt-surface: #fff;
+  --belt-ink: #0f172a;
+  --belt-border: #cbd5e1;
+  container-type: inline-size;
+  min-width: 0;
+  max-width: 100%;
+  color: inherit;
+}
+
+.dark .certificate-belt {
+  --belt-surface: #111827;
+  --belt-ink: #f8fafc;
+  --belt-border: #475569;
+}
+
+.certificate-belt__hint {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.certificate-belt__stage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  position: relative;
+}
+.certificate-belt__rail {
+  --edge-fade: clamp(0.5rem, 2cqi, 1.5rem);
+  --edge-mask: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--edge-fade),
+    #000 calc(100% - var(--edge-fade)),
+    transparent
+  );
+  -webkit-mask-image: var(--edge-mask);
+  mask-image: var(--edge-mask);
+  grid-column: 1 / -1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  overflow-anchor: none;
+  scrollbar-width: none;
+}
+.certificate-belt__rail::-webkit-scrollbar {
+  display: none;
+}
+.certificate-belt__list {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  margin: 0 !important;
+  padding: 1rem calc(var(--edge-fade) + 0.75rem) !important;
+  list-style: none;
+}
+.certificate-belt__item {
+  list-style: none;
+  flex: 0 0 auto;
+  width: min(80cqi, calc(12rem + 12cqi));
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.certificate-belt figure {
+  margin: 0;
+}
+.certificate-belt__preview {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--belt-border);
+  border-radius: 0.75rem;
+  background: #fff;
+  cursor: zoom-in;
+}
+.certificate-belt__preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+.certificate-belt__expand {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 2rem;
+  background: #312e81;
+  color: #fff;
+  font-size: 0.75rem;
+}
+.certificate-belt figcaption {
+  overflow-wrap: anywhere;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.certificate-belt time {
+  display: block;
+  margin-top: 0.25rem;
+  opacity: 0.75;
+}
+.certificate-belt__edge {
+  position: relative;
+  justify-self: start;
+  width: 2.75rem;
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--belt-surface);
+  color: var(--belt-ink);
+  opacity: 0.9;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.certificate-belt__edge--left {
+  justify-self: end;
+}
+@container (min-width: 40rem) {
+  .certificate-belt__edge {
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+  }
+  .certificate-belt__edge--left {
+    left: 0;
+  }
+  .certificate-belt__edge--right {
+    right: 0;
+  }
+}
+.certificate-belt button:focus-visible,
+.certificate-belt a:focus-visible,
+.certificate-belt__rail:focus-visible {
+  outline: 3px solid #818cf8;
+  outline-offset: 3px;
+}
+.certificate-belt__dialog {
+  width: min(94vw, 70rem);
+  max-height: 92dvh;
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--belt-border);
+  border-radius: 1rem;
+  overflow: auto;
+  background: var(--belt-surface);
+  color: var(--belt-ink);
+  box-shadow: 0 2rem 6rem #0006;
+}
+.certificate-belt__dialog::backdrop {
+  background: #020617c9;
+}
+.certificate-belt__panel {
+  padding: clamp(0.75rem, 3vw, 1.5rem);
+}
+.certificate-belt__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.certificate-belt__header h2 {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.certificate-belt__close {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--belt-border);
+  border-radius: 50%;
+  background: var(--belt-surface);
+  color: var(--belt-ink);
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+.certificate-belt__large {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 70dvh;
+  object-fit: contain;
+  margin: 0;
+  border-radius: 0.5rem;
+  background: #fff;
+}
+.certificate-belt__pdf {
+  display: inline-block;
+  margin-top: 1rem;
+  color: inherit;
+  text-decoration: underline;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  @container (min-width: 40rem) {
+    .certificate-belt__edge {
+      opacity: 0;
+      transition: opacity 220ms ease;
+      border-radius: 0;
+    }
+    .certificate-belt__edge--left {
+      background: linear-gradient(to right, var(--belt-surface), transparent);
+    }
+    .certificate-belt__edge--right {
+      background: linear-gradient(to left, var(--belt-surface), transparent);
+    }
+    .certificate-belt__edge:hover,
+    .certificate-belt__edge:focus-visible {
+      opacity: 1;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certificate-belt__edge {
+    transition: none;
+  }
+}

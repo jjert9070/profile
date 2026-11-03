@@ -71,3 +71,4 @@ The x-cloak directive is located in the head partial to prevent rollup from Vite
   {{ $styles := resources.Get "css/main.css" }}{{ if $styles }}<link rel="stylesheet" href="{{ $styles.RelPermalink }}" />{{ end }}
 {{ end }}
 {{ end }}
+<link rel="stylesheet" href="{{ "styles/content-layout.css" | relURL }}">

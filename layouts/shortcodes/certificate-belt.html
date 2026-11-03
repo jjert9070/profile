@@ -1,0 +1,38 @@
+{{ $id := printf "certificate-belt-%d" .Ordinal }}
+<link rel="stylesheet" href="{{ "styles/certificate-belt.css" | relURL }}">
+<div class="certificate-belt not-prose" data-certificate-belt>
+  <p class="certificate-belt__hint">Hover an edge to move the belt. Use the arrows or swipe on touch. Select a certificate to enlarge it.</p>
+  <div class="certificate-belt__stage">
+    <div class="certificate-belt__rail" data-rail tabindex="0" role="region" aria-label="Certificate previews">
+      <ul class="certificate-belt__list" data-list>
+        {{ range .Page.Params.certificates }}
+        <li class="certificate-belt__item">
+          <figure>
+            <button type="button" class="certificate-belt__preview" data-preview
+              data-title="{{ .title }}"
+              data-image="{{ .image | relURL }}"
+              aria-label="Enlarge certificate: {{ .title }}" aria-haspopup="dialog">
+              <img src="{{ .image | relURL }}" alt="{{ .title }} completion certificate" loading="lazy" decoding="async">
+              <span class="certificate-belt__expand">Expand ↗</span>
+            </button>
+            <figcaption>{{ .title }}<time datetime="{{ .completed }}">{{ .completed }}</time></figcaption>
+          </figure>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    <button type="button" class="certificate-belt__edge certificate-belt__edge--left" data-direction="-1" aria-label="Move certificates left">‹</button>
+    <button type="button" class="certificate-belt__edge certificate-belt__edge--right" data-direction="1" aria-label="Move certificates right">›</button>
+  </div>
+  <dialog class="certificate-belt__dialog" data-dialog aria-labelledby="{{ $id }}-title">
+    <div class="certificate-belt__panel">
+      <header class="certificate-belt__header">
+        <h2 id="{{ $id }}-title" data-dialog-title>Certificate</h2>
+        <button type="button" class="certificate-belt__close" data-close aria-label="Close certificate preview" autofocus>×</button>
+      </header>
+      <img class="certificate-belt__large" data-dialog-image alt="">
+    </div>
+  </dialog>
+</div>
+{{ $scriptVersion := readFile "static/js/certificate-belt.js" | crypto.SHA256 }}
+<script src="{{ "js/certificate-belt.js" | relURL }}?v={{ $scriptVersion }}" defer></script>

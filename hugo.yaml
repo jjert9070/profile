@@ -156,6 +156,18 @@ menu:
       name: Algorithm
       pageRef: /study/algorithm
       weight: 10
+    - identifier: data-structure
+      name: Data Structure
+      pageRef: /study/data-structure
+      weight: 20
+    - identifier: data-structure-in-c
+      name: Data Structure in C
+      pageRef: /study/data-structure-in-c
+      weight: 30
+    - identifier: certificate
+      name: Certificate
+      pageRef: /study/certificate
+      weight: 40
   categories:
     - identifier: prose
       name: Prose

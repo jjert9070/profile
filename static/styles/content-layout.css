@@ -58,3 +58,12 @@
     transition: none;
   }
 }
+
+.site-header {
+  --navigation-focus-color: #a5b4fc;
+}
+
+.site-header :is(a, button):focus-visible {
+  outline: 3px solid var(--navigation-focus-color);
+  outline-offset: 3px;
+}

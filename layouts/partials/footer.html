@@ -89,3 +89,6 @@
 
 {{/* Load Alpine.js after DOM is ready to prevent layout shifts */}}
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js" integrity="sha384-FYLKjwG3aohNhNZoVG8sY/5ntunm+MqylL90Q+rT3OM7AwV9/BKFjk/RjoIpIgsI" crossorigin="anonymous"></script>
+
+{{ $keyboardNavigation := resources.FromString "js/keyboard-navigation.js" (readFile "assets/js/keyboard-navigation.js") | js.Build | fingerprint }}
+<script defer src="{{ $keyboardNavigation.RelPermalink }}"></script>

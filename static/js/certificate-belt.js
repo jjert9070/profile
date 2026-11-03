@@ -16,6 +16,24 @@ document.querySelectorAll("[data-certificate-belt]").forEach((root) => {
   let previousOverflow = "";
   let drag;
   let suppressClick = false;
+  let keyboardBrowsing = false;
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key !== "Tab") return;
+      keyboardBrowsing = true;
+      stop();
+    },
+    true,
+  );
+  root.addEventListener(
+    "pointerdown",
+    () => {
+      keyboardBrowsing = false;
+    },
+    true,
+  );
 
   rail.addEventListener(
     "wheel",
@@ -24,6 +42,7 @@ document.querySelectorAll("[data-certificate-belt]").forEach((root) => {
         return;
       if (!event.cancelable || rail.scrollWidth <= rail.clientWidth) return;
       event.preventDefault();
+      keyboardBrowsing = false;
       stop();
       const unit =
         event.deltaMode === 1
@@ -119,12 +138,25 @@ document.querySelectorAll("[data-certificate-belt]").forEach((root) => {
     wrapScroll(rail.scrollLeft + distance);
   }
 
-  rail.addEventListener("scroll", () => wrapScroll(), { passive: true });
+  // Focus scrolling must not reorder cards, or Tab can never reach the end.
+  rail.addEventListener(
+    "scroll",
+    () => {
+      if (!keyboardBrowsing) wrapScroll();
+    },
+    { passive: true },
+  );
   wrapScroll();
 
   function start(direction) {
     stop();
-    if (reducedMotion.matches || dialog.open || document.hidden) return;
+    if (
+      keyboardBrowsing ||
+      reducedMotion.matches ||
+      dialog.open ||
+      document.hidden
+    )
+      return;
     function tick(time) {
       if (previousTime)
         move(direction * Math.min(time - previousTime, 40) * 0.16);

@@ -1,5 +1,42 @@
 <div class="site-header top-0 z-50 w-full text-gray-200 bg-gray-200 border-2 border-gray-900 bg-gray-950 md:sticky border-b-stone-200/10">
-    <div x-data="{ open: false, wide: window.matchMedia('(min-width: 48rem)').matches }"
+    <div x-data="{
+        open: false,
+        wide: window.matchMedia('(min-width: 48rem)').matches,
+        moveMenuFocus(event) {
+            if (event.isComposing || event.altKey || event.ctrlKey || event.metaKey) return;
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+            const direction = event.key === 'ArrowDown' ? 1 : -1;
+            const nav = event.currentTarget;
+            const group = event.target.closest('[data-navigation-group]');
+            const trigger = group?.querySelector('button');
+            const current = event.target.closest('a, button');
+            const visible = item => item.getClientRects().length && !item.disabled && item.tabIndex >= 0 && !item.closest('[inert]');
+            event.preventDefault();
+            event.stopPropagation();
+            if (current === trigger && direction === 1) {
+                if (trigger.getAttribute('aria-expanded') !== 'true') trigger.click();
+                this.$nextTick(() => group.querySelector('a[href]')?.focus({ preventScroll: true }));
+                return;
+            }
+            const topItems = Array.from(nav.querySelectorAll('a[href], button'))
+                .filter(item => !item.closest('.navigation-dropdown') && visible(item));
+            let next;
+            if (group && current !== trigger) {
+                const links = Array.from(group.querySelectorAll('a[href]')).filter(visible);
+                next = links[links.indexOf(current) + direction];
+                if (!next) next = direction === -1 ? trigger : topItems[topItems.indexOf(trigger) + 1];
+            } else {
+                next = topItems[topItems.indexOf(current) + direction];
+            }
+            if (!next) {
+                const items = Array.from(document.querySelectorAll('a[href], button, input, select, textarea, [tabindex]')).filter(visible);
+                next = items[items.indexOf(current) + direction];
+            }
+            if (!next) return;
+            if (!nav.contains(next)) this.open = false;
+            next.focus({ preventScroll: nav.contains(next) });
+        }
+    }"
         @resize.window="wide = window.matchMedia('(min-width: 48rem)').matches"
         @focusout="if (!$el.contains($event.relatedTarget)) open = false"
         @keydown.escape="if (open && $refs.mobileMenuToggle.offsetParent !== null) { $event.preventDefault(); $event.stopPropagation(); open = false; $refs.mobileMenuToggle.focus() }"
@@ -22,10 +59,10 @@
             x-effect="if (!open || wide) settled = false"
             @transitionend.self="if ($event.propertyName === 'grid-template-rows') settled = open || wide">
           <div class="navigation-panel__clip">
-        <nav id="menuItems" class="flex flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+        <nav id="menuItems" @keydown="moveMenuFocus($event)" class="flex flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
             {{ range site.Menus.main }}
             {{ if (eq "complexdropdown" .Pre) }}
-            <div @click.away="open = false" class="relative" x-data="{ open: false }"
+            <div data-navigation-group @click.away="open = false" class="relative" x-data="{ open: false }"
                 @focusout="if (!$el.contains($event.relatedTarget)) open = false"
                 @keydown.escape="if (open) { $event.preventDefault(); $event.stopPropagation(); open = false; $refs.dropdownToggle.focus() }">
                 <button type="button" x-ref="dropdownToggle" :aria-expanded="open" @click="open = !open" class="flex flex-row items-center px-4 py-2 mt-2 w-full text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:shadow-outline">
@@ -71,7 +108,7 @@
                 </div>
             </div>
             {{ else if (eq "dropdown" .Pre) }}
-            <div @click.away="open = false" class="relative" x-data="{ open: false }"
+            <div data-navigation-group @click.away="open = false" class="relative" x-data="{ open: false }"
                 @focusout="if (!$el.contains($event.relatedTarget)) open = false"
                 @keydown.escape="if (open) { $event.preventDefault(); $event.stopPropagation(); open = false; $refs.dropdownToggle.focus() }">
                 <button type="button" x-ref="dropdownToggle" :aria-expanded="open" @click="open = !open" class="flex flex-row items-center px-4 py-2 mt-2 w-full text-sm font-semibold text-left bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:shadow-outline">

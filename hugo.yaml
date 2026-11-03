@@ -1,5 +1,5 @@
 baseURL: 'https://tailbliss.netlify.app/'
-title: TailBliss
+title: Jeongju Pak
 locale: en-us
 DefaultContentLanguage: en
 enableEmoji: true
@@ -47,10 +47,10 @@ markup:
       xhtml: false
 
 params:
-  author: Nusser Studios
+  author: Jeongju Pak
   authorimage: ../assets/images/global/author.webp
   og_image: /images/tailbliss-cover.png
-  moto: "Super Fast, and Flexible"
+  moto: "Department of Computer Science & Aritificial Intelligence"
   description: "A Hugo theme built with love, using TailwindCSS, Alpine.JS, and Hugo Pipes. Images are optimized for use with Hugo Pipes for WebP format."
   disable_theme_toggle: false
   newsletter_signup: true

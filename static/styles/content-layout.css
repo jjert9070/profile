@@ -18,3 +18,43 @@
   height: auto;
   object-fit: contain;
 }
+
+.profile-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.profile-hero__intro,
+.profile-hero__portrait {
+  min-width: 0;
+}
+
+.profile-hero__intro {
+  text-align: center;
+}
+
+@media (min-width: 48rem) {
+  .profile-hero {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+  .profile-hero__intro {
+    text-align: left;
+  }
+}
+
+.theme-switching body,
+.theme-switching body * {
+  transition-property:
+    background-color, color, border-color, box-shadow, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switching body,
+  .theme-switching body * {
+    transition: none;
+  }
+}

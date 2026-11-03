@@ -83,7 +83,7 @@
 
 {{/* Load JavaScript at the end for better performance and CLS prevention */}}
 {{ if not .Site.Params.Disable_theme_toggle }}
-{{ $js := resources.Get "js/darkmode.js" | js.Build }}
+{{ $js := resources.Get "js/darkmode.js" | js.Build | fingerprint }}
 <script defer src="{{ $js.RelPermalink }}"></script>
 {{ end }}
 

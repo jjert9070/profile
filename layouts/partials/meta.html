@@ -1,6 +1,4 @@
-<title itemprop="name">{{if .IsHome}} {{ $.Site.Params.description }} | {{ .Title }}
-    {{else}} {{ .Title }} | {{ .Site.Title }} {{end}}
-</title>
+<title itemprop="name">{{ if .IsHome }}{{ .Site.Title }} | Portfolio{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
 <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}" />
 <meta name="twitter:title" content="{{ .Title }} | {{ .Site.Title }}" />
@@ -11,6 +9,10 @@
 <meta property="og:site_name" content="{{ .Site.Title }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
 <meta property="og:locale" content="en">
-<meta property="og:image" content="{{ if .Params.featured_image }}{{ .Params.featured_image | relURL }}{{ else }}{{ .Site.Params.og_image | relURL }}{{ end }}" />
-<meta property="og:image:secure_url" content="{{ if .Params.featured_image }}{{ .Params.featured_image | absURL }}{{ else }}{{ .Site.Params.og_image | absURL }}{{ end }}" />
+{{ $image := .Params.featured_image | default .Site.Params.og_image }}
+{{ with resources.Get $image }}
+{{ $image = .RelPermalink }}
+{{ end }}
+<meta property="og:image" content="{{ $image | absURL }}" />
+<meta property="og:image:secure_url" content="{{ $image | absURL }}" />
 <meta property="og:type" content="{{if .IsHome}}website{{else}}article{{end}}" />

@@ -17,7 +17,7 @@
                 <div class="col-span-6">
                     <div class="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-lg hero-container">
                         {{/* Use Hugo's image processing for optimized responsive images */}}
-                        {{ $heroImage := resources.Get "images/pages/tailbliss-rocket-indigo.png" }}
+                        {{ $heroImage := resources.Get "images/pages/portrait.png" }}
                         {{ if $heroImage }}
                             {{ $heroWebP := $heroImage.Resize "576x576 webp q85" }}
                             {{ $heroWebPSmall := $heroImage.Resize "320x320 webp q85" }}

@@ -48,7 +48,7 @@ markup:
 
 params:
   author: Jeongju Pak
-  authorimage: ../assets/images/global/author.webp
+  authorimage: ./assets/images/pages/author.webp
   og_image: /images/tailbliss-cover.png
   moto: "Department of Computer Science & Aritificial Intelligence"
   description: "I enjoy understanding how computers work, from the logic of digital circuits to the reasoning behind algorithms. Studying C and C++ and participating in an algorithms club give me opportunities to turn theory into code, test ideas, and understand why a solution works. I am exploring potential research directions in computer architecture, systems software, and efficient algorithms. My experience with local AI models and GPUs has also sparked questions about how hardware and software can work together to make better use of computing resources. I am keeping my research direction open as I continue to learn and experiment."

@@ -22,4 +22,4 @@
 
 - Original repository: https://github.com/nusserstudios/tailbliss
 - The repository LICENSE and footer author credit are retained.
-- Demo pages and posts are retained as drafts, excluded from ordinary production builds. Personal study content and the owner's profile post are retained.
+- Demo About, Contact and Prose pages and the unused content/posts directory were backed up locally and removed. Personal Study content and the homepage Contact section are retained.

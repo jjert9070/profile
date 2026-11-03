@@ -17,7 +17,10 @@
                 </svg>
             </button>
         </div>
-        <div class="navigation-panel" x-cloak :data-open="open || wide" :inert="!open && !wide">
+        <div class="navigation-panel" x-cloak x-data="{ settled: false }"
+            :data-open="open || wide" :data-settled="settled || wide" :inert="!open && !wide"
+            x-effect="if (!open || wide) settled = false"
+            @transitionend.self="if ($event.propertyName === 'grid-template-rows') settled = open || wide">
           <div class="navigation-panel__clip">
         <nav id="menuItems" class="flex flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
             {{ range site.Menus.main }}

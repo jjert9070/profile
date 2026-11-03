@@ -90,12 +90,6 @@
   overflow: hidden;
 }
 
-@media (width < 48rem) {
-  .navigation-dropdown {
-    position: static;
-  }
-}
-
 @media (min-width: 48rem) {
   .navigation-panel {
     display: block;
@@ -111,5 +105,16 @@
 @media (prefers-reduced-motion: reduce) {
   .navigation-panel {
     transition: none;
+  }
+}
+
+.navigation-panel[data-open="true"][data-settled="true"]
+  > .navigation-panel__clip {
+  overflow: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navigation-panel[data-open="true"] > .navigation-panel__clip {
+    overflow: visible;
   }
 }
